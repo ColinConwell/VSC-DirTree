@@ -1,0 +1,11 @@
+services:
+  dirtree:
+    build: .
+    image: vsc-dirtree-sandbox:dev
+    ports:
+      - "127.0.0.1:${DIRTREE_PORT:-3000}:3000"
+    volumes:
+      - vscode-web-cache:/var/cache/dirtree
+    init: true
+volumes:
+  vscode-web-cache:

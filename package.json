@@ -1,0 +1,105 @@
+{
+  "name": "vsc-dirtree",
+  "displayName": "DirTree",
+  "description": "Build directory trees in the sidebar and copy them as text or Markdown.",
+  "version": "0.1.0",
+  "publisher": "ColinConwell",
+  "author": "Colin Conwell",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ColinConwell/VSC-DirTree.git"
+  },
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "directory",
+    "tree",
+    "markdown",
+    "sidebar"
+  ],
+  "main": "./dist/extension.cjs",
+  "browser": "./dist/extension-web.cjs",
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "dirtree",
+          "title": "DirTree",
+          "icon": "media/dirtree.svg"
+        }
+      ]
+    },
+    "views": {
+      "dirtree": [
+        {
+          "id": "dirtree.builder",
+          "name": "Tree Builder",
+          "type": "webview",
+          "contextualTitle": "DirTree"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "dirtree.open",
+        "title": "Open Tree Builder",
+        "category": "DirTree"
+      },
+      {
+        "command": "dirtree.copy",
+        "title": "Copy Tree",
+        "category": "DirTree"
+      },
+      {
+        "command": "dirtree.copyMarkdown",
+        "title": "Copy Tree as Markdown",
+        "category": "DirTree"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "check": "tsc --noEmit",
+    "test": "tsx --test test/core.test.ts",
+    "test:ui": "playwright test",
+    "test:desktop": "node scripts/test-desktop.mjs",
+    "dev": "npm run build && node scripts/dev.mjs",
+    "dev:ui": "node scripts/ui-server.mjs",
+    "vscode:prepublish": "npm run check && npm run build",
+    "package": "vsce package --no-dependencies --out dirtree.vsix",
+    "test:workbench": "playwright test --config playwright.workbench.config.ts",
+    "format": "prettier --write src test scripts *.json *.ts .github/workflows/*.yml"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/vscode": "^1.96.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/test-web": "^0.0.81",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vscode-test*/
+.test-profile/
+playwright-report/
+test-results/
+*.vsix
+.firecrawl/
+.DS_Store
