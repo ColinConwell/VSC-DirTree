@@ -4,14 +4,19 @@
   "description": "Build directory trees in the sidebar and copy them as text or Markdown.",
   "version": "0.1.0",
   "publisher": "ColinConwell",
-  "author": "Colin Conwell",
+  "author": {
+    "name": "Colin Conwell",
+    "email": "colinconwell@gmail.com",
+    "url": "https://github.com/ColinConwell"
+  },
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
     "url": "https://github.com/ColinConwell/VSC-DirTree.git"
   },
   "engines": {
-    "vscode": "^1.96.0"
+    "vscode": "^1.96.0",
+    "node": ">=22"
   },
   "categories": [
     "Other"
@@ -20,7 +25,9 @@
     "directory",
     "tree",
     "markdown",
-    "sidebar"
+    "sidebar",
+    "ascii",
+    "documentation"
   ],
   "main": "./dist/extension.cjs",
   "browser": "./dist/extension-web.cjs",
@@ -78,28 +85,45 @@
     "check": "tsc --noEmit",
     "test": "tsx --test test/core.test.ts",
     "test:ui": "playwright test",
-    "test:desktop": "node scripts/test-desktop.mjs",
+    "test:desktop": "npm run build:test && node scripts/test-desktop.mjs",
     "dev": "npm run build && node scripts/dev.mjs",
     "dev:ui": "node scripts/ui-server.mjs",
     "vscode:prepublish": "npm run check && npm run build",
-    "package": "vsce package --no-dependencies --out dirtree.vsix",
+    "package": "vsce package --no-dependencies --out dirtree.vsix && npm run test:package",
     "test:workbench": "playwright test --config playwright.workbench.config.ts",
-    "format": "prettier --write src test scripts *.json *.ts .github/workflows/*.yml"
+    "format": "prettier --write src test scripts *.json *.ts *.md docs/*.md .github/workflows/*.yml .vscode/*.json",
+    "build:test": "node scripts/build.mjs --tests",
+    "test:package": "node scripts/verify-package.mjs",
+    "test:installed": "npm run build:test && node scripts/test-desktop.mjs --package",
+    "format:check": "prettier --check src test scripts *.json *.ts *.md docs/*.md .github/workflows/*.yml .vscode/*.json",
+    "build:icon": "node scripts/build-icon.mjs",
+    "test:release": "node --test test/publication.test.mjs",
+    "release:metadata": "node scripts/release.mjs --metadata",
+    "release:dry-run": "node scripts/release.mjs --dry-run",
+    "release:publish": "node scripts/release.mjs --publish"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@types/vscode": "^1.96.0",
+    "@types/vscode": "1.96.0",
     "@vscode/test-electron": "^3.1.0",
     "@vscode/test-web": "^0.0.81",
-    "@vscode/vsce": "^4.0.0",
+    "@vscode/vsce": "4.0.0",
     "esbuild": "^0.28.2",
+    "ovsx": "^1.2.0",
     "prettier": "^3.9.8",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
-  }
+    "typescript": "^7.0.2",
+    "yauzl": "^3.4.0"
+  },
+  "homepage": "https://github.com/ColinConwell/VSC-DirTree#readme",
+  "bugs": {
+    "url": "https://github.com/ColinConwell/VSC-DirTree/issues",
+    "email": "colinconwell@gmail.com"
+  },
+  "icon": "media/icon.png"
 }

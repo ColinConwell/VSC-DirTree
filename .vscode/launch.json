@@ -1,8 +1,16 @@
 {
   "version": "0.2.0",
-  "configurations": [{
-    "name": "DirTree Extension", "type": "extensionHost", "request": "launch",
-    "args": ["--extensionDevelopmentPath=${workspaceFolder}", "${workspaceFolder}/fixtures/workspace"],
-    "outFiles": ["${workspaceFolder}/dist/**/*.cjs"], "preLaunchTask": "DirTree: Build"
-  }]
+  "configurations": [
+    {
+      "name": "DirTree Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "${workspaceFolder}/fixtures/workspace"
+      ],
+      "outFiles": ["${workspaceFolder}/dist/**/*.cjs"],
+      "preLaunchTask": "DirTree: Build"
+    }
+  ]
 }

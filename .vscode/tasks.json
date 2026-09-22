@@ -1,1 +1,4 @@
-{"version":"2.0.0","tasks":[{"label":"DirTree: Build","type":"npm","script":"build","problemMatcher":[]}]}
+{
+  "version": "2.0.0",
+  "tasks": [{ "label": "DirTree: Build", "type": "npm", "script": "build", "problemMatcher": [] }]
+}

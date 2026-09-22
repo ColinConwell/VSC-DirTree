@@ -6,7 +6,7 @@ const server = await open({
   browserType: 'none',
   quality: 'stable',
   commit: process.env.VSCODE_COMMIT || '7debcd0e2acdea1c52de81bf9ee1620444407dda',
-  extensionDevelopmentPath: resolve('.'),
+  extensionDevelopmentPath: resolve(process.env.DIRTREE_EXTENSION_PATH || '.'),
   folderPath: resolve('fixtures/workspace'),
   host,
   port,

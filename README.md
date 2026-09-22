@@ -1,19 +1,6 @@
 # DirTree
 
-A compact VS Code / Code OSS sidebar for building directory trees and copying them into documents. The tree is a draft: editing it does not create, rename, or delete files in your workspace.
-
-## First Run
-
-Install the generated `dirtree.vsix` with **Extensions → … → Install from VSIX…**, then select **DirTree** in the Activity Bar. You can also run **DirTree: Open Tree Builder** from the Command Palette.
-
-- Select a folder and add a **File** or **Folder**. When a file is selected, new items go beside it.
-- Type the name inline. **Enter** commits; **Escape** cancels. Double-click or **F2** renames an existing item.
-- Drag between rows to reorder, or onto a folder to nest. Hovering over a collapsed folder during a drag expands it.
-- Use the row’s **…** menu for comments, moving, and deletion. Undo restores deleted subtrees.
-- Click **Copy Tree** for plain text, or its dropdown for a fenced Markdown block.
-- Expand **Text Preview** to inspect or manually select the output. Collapsing folders does not exclude their children from exports.
-
-The draft saves automatically per workspace. Without an open workspace, DirTree uses a separate shared draft. Selection, expansion, preview visibility, and in-progress input are restored when VS Code retains the webview state; committed tree data survives a VS Code restart. Undo history is bounded to 100 edits and is not guaranteed across application restarts.
+Build directory trees in your editor's sidebar and copy them as plain text or fenced Markdown. DirTree edits a draft for documentation; it does not create, rename, or delete workspace files.
 
 ```text
 project/
@@ -23,89 +10,100 @@ project/
 └── README.md
 ```
 
-## Keyboard Controls
+## Features
 
-Tree shortcuts apply while a tree row has focus. Text inputs retain normal text-editing shortcuts.
+- Add, rename, reorder, nest, and delete files and folders using the mouse or keyboard.
+- Drag items between folders, with automatic expansion on hover.
+- Add inline comments and inspect the text preview before copying.
+- Copy the complete tree as plain text or a Markdown code block, including collapsed branches.
+- Undo and redo up to 100 edits, and automatically save a draft per workspace.
+- Use your editor's light, dark, or high-contrast theme.
 
-| Action | Shortcut |
-| --- | --- |
-| Add file / folder | N / Shift+N |
-| Rename | F2 or Enter |
-| Commit / cancel editing | Enter / Escape |
-| Navigate | Up / Down / Home / End |
-| Expand / collapse / navigate hierarchy | Right / Left |
-| Move up / down | Alt+Up / Alt+Down |
-| Nest under preceding folder / outdent | Alt+Right / Alt+Left |
-| Item actions | Shift+F10 |
-| Delete | Delete or Backspace |
-| Undo / redo | Cmd/Ctrl+Z / Cmd/Ctrl+Shift+Z |
-| Copy plain text / Markdown | Cmd/Ctrl+C / Cmd/Ctrl+Shift+C |
-| Show shortcuts | ? |
+## Installation
 
-Tab remains available for moving between controls. Keyboard alternatives cover all drag operations.
+DirTree requires VS Code 1.96 or later, or an editor with a compatible VS Code extension API. It includes both desktop and browser extension hosts. Node.js is not required to use the installed extension.
 
-## Development
+### VS Code, Cursor, and Compatible Editors
 
-Use Node.js 22 or later and npm.
+In the Extensions view, search for `ColinConwell.vsc-dirtree` and verify that the developer is **Colin Conwell**. Marketplace installation is available once the extension has been published to your editor's registry: Visual Studio Marketplace for VS Code, and Open VSX for Cursor and other clients that use that registry. Availability can depend on the editor's review and organizational policies.
+
+### Install From a VSIX
+
+Download `dirtree.vsix` from a [GitHub release](https://github.com/ColinConwell/VSC-DirTree/releases), when available, or [build it from source](docs/development.md). In the Extensions view, open **… → Install from VSIX…** and select the file.
+
+With the corresponding editor's command-line launcher installed:
 
 ```sh
-npm ci
-npm run build
-npm run dev
+code --install-extension dirtree.vsix
+# Or, for Cursor:
+cursor --install-extension dirtree.vsix
 ```
 
-Open **http://localhost:3000** in a Chromium-based browser. This is Microsoft's real VS Code web workbench, served by `@vscode/test-web`, with DirTree loaded and a small sample workspace. **Use `localhost`**: the workbench constructs subdomains for isolated extension workers and webviews, which do not work with an IPv4 address in the URL.
+## Quick Start
 
-The first launch downloads a pinned VS Code build into `.vscode-test-web/`. The sample filesystem is virtual: changes to its documents remain in memory. DirTree drafts use the workbench’s browser storage. Browser clipboard access may require permission.
+1. Select **DirTree** in the Activity Bar, or run **DirTree: Open Tree Builder** from the Command Palette.
+2. Select a folder and choose **File** or **Folder**. When a file is selected, new items go beside it.
+3. Enter a name. Press **Enter** to save it or **Escape** to cancel. Double-click an item or press **F2** to rename it.
+4. Drag between rows to reorder, or onto a folder to nest. The row's **…** menu also provides comments, movement, and deletion.
+5. Select **Copy Tree** for plain text, or open its dropdown and choose **Copy as Markdown**. Paste the result into your document.
 
-For UI development, run `npm run watch` in another terminal and reload the workbench after rebuilding. `npm run dev:ui` provides a faster standalone sidebar harness at `http://127.0.0.1:4317`; its clipboard bridge is simulated, so use the workbench or desktop tests to verify actual copying.
+Expand **Text Preview** to inspect or manually select the output. Collapsing a folder only changes the sidebar; its children remain in the export.
 
-For desktop development, open this repository in VS Code and press **F5**, selecting **DirTree Extension**. This opens an Extension Development Host on the sample workspace.
+## Commands
 
-## Container Sandbox
+Open the Command Palette with **Cmd+Shift+P** on macOS or **Ctrl+Shift+P** on Windows and Linux.
 
-```sh
-docker compose up --build
-```
+| Command                        | Action                                                |
+| ------------------------------ | ----------------------------------------------------- |
+| DirTree: Open Tree Builder     | Open the sidebar.                                     |
+| DirTree: Copy Tree             | Copy the current draft as plain text.                 |
+| DirTree: Copy Tree as Markdown | Copy the current draft in a fenced `text` code block. |
 
-Open **http://localhost:3000**. The container serves the real VS Code web workbench; your host browser displays it. It does not require a Linux desktop or VNC. The port is bound to the host’s loopback interface. A Docker volume caches the downloaded workbench. Stop it with `docker compose down`.
+DirTree does not require configuration settings.
 
-The container runs a built snapshot. After source changes, rebuild it with the same command. To choose another host port, run `DIRTREE_PORT=3001 docker compose up --build`. Stop a locally running `npm run dev` before starting the container on the same port.
+## Keyboard Shortcuts
 
-## Verification and Packaging
+These shortcuts apply while a tree row has focus. Text inputs retain normal text-editing shortcuts. Use **Cmd** on macOS and **Ctrl** on Windows and Linux where indicated.
 
-```sh
-npm run check
-npm run build
-npm test
-npx playwright install chromium
-npm run test:ui
-npm run test:workbench
-npm run test:desktop
-npm run package
-```
+| Action                                 | Shortcut                      |
+| -------------------------------------- | ----------------------------- |
+| Add file / folder                      | N / Shift+N                   |
+| Rename                                 | F2 or Enter                   |
+| Save / cancel editing                  | Enter / Escape                |
+| Navigate                               | Up / Down / Home / End        |
+| Expand / collapse / navigate hierarchy | Right / Left                  |
+| Move up / down                         | Alt+Up / Alt+Down             |
+| Nest under preceding folder / outdent  | Alt+Right / Alt+Left          |
+| Item actions                           | Shift+F10                     |
+| Delete                                 | Delete or Backspace           |
+| Undo / redo                            | Cmd/Ctrl+Z / Cmd/Ctrl+Shift+Z |
+| Copy plain text / Markdown             | Cmd/Ctrl+C / Cmd/Ctrl+Shift+C |
+| Show shortcuts                         | ?                             |
 
-- **Core tests:** branch formatting, Markdown fences, name validation, nesting, cycles, deletion, undo, and persisted-data validation.
-- **UI tests:** inline editing and focus, copy requests, drag/drop, keyboard movement, comments, narrow layouts, and restoration.
-- **Workbench test:** actual extension activation, actual clipboard contents, theme integration, hiding/reopening the sidebar, and page reload. It starts a separate workbench on `localhost:3002`.
-- **Desktop tests:** extension activation, command registration, actual clipboard output, and opening the sidebar in an isolated profile.
-- **Packaging:** creates `dirtree.vsix`, with bundled assets and no runtime npm dependencies.
+Tab moves between controls. Keyboard alternatives are available for all drag operations.
 
-To test an already running container, set `DIRTREE_WORKBENCH_URL=http://localhost:3000` when running `npm run test:workbench`. To save workbench screenshots, set `DIRTREE_SCREENSHOTS_DIR` to a directory outside the repository. On Linux CI, install Playwright system dependencies (`npx playwright install --with-deps chromium`) and run desktop tests under `xvfb-run -a`.
+## Saved Drafts and Privacy
 
-Desktop tests normally download VS Code 1.138.0. Set `VSCODE_EXECUTABLE` to an existing application executable to use that installation instead. Test profiles live under `.test-profile/`. `VSCODE_COMMIT` can override the pinned web build for compatibility testing.
+Committed edits are saved automatically in the editor's extension storage, with one draft per workspace. Without an open workspace, DirTree uses a separate draft in that editor profile. Committed tree data survives restarts; undo history and unfinished input are not guaranteed to survive a restart. Removing an editor profile or its extension storage can remove its drafts. Copy important trees into a document to retain them independently.
 
-## Implementation
+DirTree does not scan or modify workspace files, send telemetry, or make network requests. All runtime assets are included in the extension. The editor handles clipboard access and extension storage. In browser editors, clipboard access may require browser permission. Virtual and untrusted workspaces are supported because the extension edits only its own draft.
 
-- `src/core/tree.ts`: immutable tree operations, validation, undo/redo, and a deterministic text renderer.
-- `src/webview/`: React sidebar, keyboard and drag interactions, native theme variables, and accessible tree semantics.
-- `src/extension.ts`: `WebviewViewProvider`, workspace persistence, validated messages, and the VS Code clipboard API.
-- `scripts/`: builds, development workbenches, and desktop test runner.
+## Limitations and Troubleshooting
 
-The extension activates on demand. UI changes happen locally; the extension host persists completed edits and handles clipboard access. All assets ship in the VSIX, with a restrictive content security policy. It works without network access after installation and uses the same source for desktop and browser extension hosts.
+- Names must be single path segments and unique within their parent. Folder slashes are added when rendering.
+- A tree supports up to 5,000 items and 64 nested levels. Comments are single-line text. Wide or combining Unicode characters may affect comment alignment.
+- This version supports one draft per workspace. It does not import the filesystem, insert directly into documents, or manage multiple saved trees.
+- If the sidebar is hidden, run **DirTree: Open Tree Builder**. After an installation or update, try **Developer: Reload Window** if the view is unavailable.
+- If browser clipboard access is denied, allow it for the editor's site or manually select the output in **Text Preview**.
 
-Names must be single path segments and unique within their parent. A trailing folder slash is added during rendering. One tree supports up to 5,000 items and 64 nested levels. Comments are single-line text; alignment assumes a monospace font, and wide or combining Unicode characters may not align precisely. The first version uses one draft per workspace. Document insertion, linked Markdown previews, filesystem import, and multiple saved trees are outside this version.
+## Support and Development
 
-## License
+Report reproducible problems through [GitHub Issues](https://github.com/ColinConwell/VSC-DirTree/issues). Include the editor version, operating system, steps to reproduce, and expected result. Avoid including private paths or document contents.
 
-GPL-3.0-only. See [LICENSE](LICENSE).
+See [Development and Testing](docs/development.md) for the source layout, local workbench, test commands, and package verification. See the [Changelog](CHANGELOG.md) for version history and [Contributing](CONTRIBUTING.md) for contribution guidance.
+
+## Author and License
+
+Developed by **Colin Conwell** ([colinconwell@gmail.com](mailto:colinconwell@gmail.com)).
+
+Copyright © 2026 Colin Conwell. Licensed under [GPL-3.0-only](LICENSE). Bundled third-party licenses are included in [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt). Corresponding source and build instructions are available in the [source repository](https://github.com/ColinConwell/VSC-DirTree).
