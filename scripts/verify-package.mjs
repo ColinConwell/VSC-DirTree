@@ -72,6 +72,8 @@ for (const file of [
   'dist/extension-web.cjs',
   'dist/webview.js',
   'dist/webview.css',
+  'media/icon.png',
+  'media/dirtree.svg',
 ]) {
   assert.doesNotMatch(files.get('extension/' + file).toString(), /sourceMappingURL=/);
   assert.deepEqual(

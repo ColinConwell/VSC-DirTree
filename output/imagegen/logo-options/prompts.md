@@ -1,0 +1,16 @@
+# DirTree Logo Concepts
+
+Generated with the built-in image-generation tool. Concept artwork for review; not installed extension assets.
+
+## Branching Ribbon
+
+Use case: logo-brand. Create one polished logo concept for DirTree, a VS Code extension for building directory trees. Sleek, abstract, professional software identity, vector-like flat geometry, precise edges, restrained VS Code-inspired azure and deep blue palette. Square canvas, one large centered symbol with generous margins on a clean off-white background. No lettering, no mockup, no labels, no watermark, no cartoon, no mascot, no organic foliage, no 3D, no shadows, no fine detail. Strong silhouette and broad negative spaces suitable for a small extension icon. Original identity evoking VS Code rather than reproducing its exact logo. An angular folded ribbon forms a directory-tree structure: one vertical spine splits into three short rightward paths with squared terminals, the outer silhouette subtly evokes VS Code's open angular ribbon. Unify the branching and ribbon into one coherent minimal symbol, two flat blue tones, no decorative details.
+
+## Directory D
+
+Use case: logo-brand. Create one polished logo concept for DirTree, a VS Code extension for building directory trees. Sleek, abstract, professional software identity, vector-like flat geometry, precise edges, restrained VS Code-inspired azure and deep blue palette. Square canvas, one large centered symbol with generous margins on a clean off-white background. No lettering, no mockup, no labels, no watermark, no cartoon, no mascot, no organic foliage, no 3D, no shadows, no fine detail. Strong silhouette and broad negative spaces suitable for a small extension icon. Original identity evoking VS Code rather than reproducing its exact logo. A bold geometric capital D-shaped symbol in azure blue, with an unmistakable directory hierarchy carved into its interior as negative space: one vertical trunk and two right-angle branches. The D's outer right edge is an angular bracket, giving the restrained visual character of a code editor. Extremely clear, compact, balanced, two flat blue tones maximum.
+
+## Bracket Tree
+
+Use case: logo-brand. Create one polished logo concept for DirTree, a VS Code extension for building directory trees. Sleek, abstract, professional software identity, vector-like flat geometry, precise edges, restrained VS Code-inspired azure and deep blue palette. Square canvas, one large centered symbol with generous margins on a clean off-white background. No lettering, no mockup, no labels, no watermark, no cartoon, no mascot, no organic foliage, no 3D, no shadows, no fine detail. Strong silhouette and broad negative spaces suitable for a small extension icon. Original identity evoking VS Code rather than reproducing its exact logo. A minimal abstract directory tree nestled between two asymmetric angular code brackets. Integrate the left bracket with the tree's vertical trunk; three short horizontal branches terminate in small solid square nodes, and the right bracket is a broad azure diagonal echoing a folded code-editor ribbon. Make this a compact unified logo rather than a diagram. Flat deep blue and azure, bold consistent visual weight.
+
